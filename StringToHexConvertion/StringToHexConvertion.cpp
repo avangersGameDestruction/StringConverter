@@ -46,3 +46,19 @@ std::string string_to_hex(const std::string& input)
     }
     return output;
 }
+
+std::string hex_to_string(const std::string& input)
+{
+    const auto len = input.length();
+    if (len & 1) throw std::invalid_argument("odd length");
+
+    std::string output;
+    output.reserve(len / 2);
+    for (auto it = input.begin(); it != input.end(); )
+    {
+        int hi = hex_value(*it++);
+        int lo = hex_value(*it++);
+        output.push_back(hi << 4 | lo);
+    }
+    return output;
+}
